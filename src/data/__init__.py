@@ -1,8 +1,13 @@
-"""Datamodule Initialisation."""
 from src.data.Canada.datamodule import EnvDataModule, SatDataModule, TabSatDataModule
-from src.data.hf_Canada.hf_datamodule import EnvDataModule as HfEnvDataModule
-from src.data.hf_Canada.hf_datamodule import SatDataModule as HfSatDataModule
-from src.data.hf_Canada.hf_datamodule import TabSatDataModule as HfTabSatDataModule
+
+try:
+    from src.data.hf_Canada.hf_datamodule import EnvDataModule as HfEnvDataModule
+    from src.data.hf_Canada.hf_datamodule import SatDataModule as HfSatDataModule
+    from src.data.hf_Canada.hf_datamodule import TabSatDataModule as HfTabSatDataModule
+except ImportError:
+    HfEnvDataModule = None
+    HfSatDataModule = None
+    HfTabSatDataModule = None
 
 
 def get_data(config):

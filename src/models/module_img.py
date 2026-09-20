@@ -14,11 +14,14 @@ from deepsat.metrics.torch_metrics import get_binary_metrics, get_mean_metrics
 from deepsat.models.TSViT.TSViTdense import TSViTDown
 from deepsat.utils.lr_scheduler import build_scheduler_pytorch
 from src.data.utils import segmentation_ground_truths
-from src.eval.utils import get_pr_auc_scores
 from src.models.convlstm import ConvLSTMNet
 from src.models.resnet import ResNetConvLSTM
-from src.models.vit import ViTFactorizeModel, ViTModel
 from src.utils.torch_utils import get_alpha, get_trainable_params
+try:
+    from src.models.vit import ViTFactorizeModel, ViTModel
+except ImportError:
+    ViTFactorizeModel = None
+    ViTModel = None
 
 
 class ImgModule(LightningModule):

@@ -3,8 +3,12 @@ import json
 import os
 from typing import Dict, List, Tuple, Union
 
+try:
+    import rasterio
+except ImportError:
+    rasterio = None
+
 import numpy as np
-import rasterio
 import torch
 import torchvision.transforms as transforms
 from PIL import Image

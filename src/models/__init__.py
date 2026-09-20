@@ -1,5 +1,8 @@
 from src.models.module_img import ImgModule
-from src.models.module_tab import TabModule
+try:
+    from src.models.module_tab import TabModule
+except ImportError:
+    TabModule = None
 
 
 def get_model(config, device):
