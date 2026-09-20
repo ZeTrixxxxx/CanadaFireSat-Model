@@ -65,9 +65,10 @@ class ConvLSTMCell(nn.Module):
     def init_hidden(self, batch_size: int, image_size: int):
         height, width = image_size
         return (
-            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device),
-            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device),
+            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device, dtype=self.conv.weight.dtype),
+            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device, dtype=self.conv.weight.dtype),
         )
+
 
 
 class ConvLSTM(nn.Module):

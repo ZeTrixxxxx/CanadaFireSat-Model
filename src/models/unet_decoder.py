@@ -6,6 +6,16 @@ import torch
 import torch.nn.functional as F
 from segmentation_models_pytorch.base import modules as md
 from torch import nn
+import inspect
+
+if hasattr(md, "Conv2dReLU") and "use_batchnorm" not in inspect.signature(md.Conv2dReLU.__init__).parameters:
+    _orig_conv2d_relu_init = md.Conv2dReLU.__init__
+    def _patched_conv2d_relu_init(self, in_channels, out_channels, kernel_size, padding=0, stride=1, **kwargs):
+        if "use_batchnorm" in kwargs:
+            kwargs["use_norm"] = "batchnorm" if kwargs.pop("use_batchnorm") else False
+        return _orig_conv2d_relu_init(self, in_channels, out_channels, kernel_size, padding=padding, stride=stride, **kwargs)
+    md.Conv2dReLU.__init__ = _patched_conv2d_relu_init
+
 
 
 class DecoderBlock(nn.Module):
